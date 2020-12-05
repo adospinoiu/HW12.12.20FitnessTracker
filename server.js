@@ -1,6 +1,9 @@
 const express = require("express");
 const logger = require("morgan");
 const mongoose = require("mongoose");
+const path = require("path");
+const apiRoutes = require("./routes/apiRoutes.js")
+
 
 const PORT = process.env.PORT || 3000;
 
@@ -25,15 +28,11 @@ mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/populatedb", { 
 //     console.log(message);
 //   });
 
-// app.get("/notes", (req, res) => {
-//   db.Note.find({})
-//     .then(dbNote => {
-//       res.json(dbNote);
-//     })
-//     .catch(err => {
-//       res.json(err);
-//     });
-// });
+app.get("/exercise", (req, res) => {
+  res.sendFile(path.join(_dirname, ".public/exercise.html"))
+});
+
+app.use(apiRoutes);
 
 // app.get("/user", (req, res) => {
 //   db.User.find({})

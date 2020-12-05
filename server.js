@@ -28,21 +28,21 @@ mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/populatedb", { 
 //     console.log(message);
 //   });
 
+
+app.get("/index", (req, res) => {
+    res.sendFile(path.join(__dirname, "./public/index.html"))
+  });
+
 app.get("/exercise", (req, res) => {
-  res.sendFile(path.join(_dirname, ".public/exercise.html"))
+  res.sendFile(path.join(__dirname, "./public/exercise.html"))
 });
 
-app.use(apiRoutes);
+app.get("/stats", (req, res) => {
+    res.sendFile(path.join(__dirname, "./public/stats.html"))
+});
 
-// app.get("/user", (req, res) => {
-//   db.User.find({})
-//     .then(dbUser => {
-//       res.json(dbUser);
-//     })
-//     .catch(err => {
-//       res.json(err);
-//     });
-// });
+// app.use(apiRoutes);
+
 
 // app.post("/submit", ({ body }, res) => {
 //   db.Note.create(body)

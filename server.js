@@ -1,14 +1,16 @@
+// Establishes the various requirements/dependencies that must be npm_installed
 const express = require("express");
 const logger = require("morgan");
 const mongoose = require("mongoose");
 const path = require("path");
 const apiRoutes = require("./routes/apiRoutes.js")
 
-
+// Establishes the localhost: 3000 to view the application in the client
 const PORT = process.env.PORT || 3000;
 
 const db = require("./models");
 
+// Sets up Express to be used in the variable 'app'
 const app = express();
 
 app.use(logger("dev"));
@@ -20,15 +22,9 @@ app.use(express.static("public"));
 
 mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/populatedb", { useNewUrlParser: true });
 
-// db.User.create({ name: "Ernest Hemingway" })
-//   .then(dbUser => {
-//     console.log(dbUser);
-//   })
-//   .catch(({ message }) => {
-//     console.log(message);
-//   });
 
 
+// Establish the paths to the three different HTML pages (index, exercise, stats)
 app.get("/index", (req, res) => {
     res.sendFile(path.join(__dirname, "./public/index.html"))
   });
@@ -42,29 +38,6 @@ app.get("/stats", (req, res) => {
 });
 
 // app.use(apiRoutes);
-
-
-// app.post("/submit", ({ body }, res) => {
-//   db.Note.create(body)
-//     .then(({ _id }) => db.User.findOneAndUpdate({}, { $push: { notes: _id } }, { new: true }))
-//     .then(dbUser => {
-//       res.json(dbUser);
-//     })
-//     .catch(err => {
-//       res.json(err);
-//     });
-// });
-
-// app.get("/populateduser", (req, res) => {
-//   db.User.find({})
-//     .populate("notes")
-//     .then(dbUser => {
-//       res.json(dbUser);
-//     })
-//     .catch(err => {
-//       res.json(err);
-//     });
-// });
 
 app.listen(PORT, () => {
   console.log(`App running on port ${PORT}!`);

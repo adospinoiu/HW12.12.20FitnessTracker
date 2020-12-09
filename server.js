@@ -40,7 +40,7 @@ mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/populatedb", { 
 
 // Routes
 // =============================================================
-// require("./routes/apiRoutes.js")(app);
+require("./routes/apiRoutes.js")(app);
 
 // Here we introduce HTML routing to serve different HTML files
 require("./routes/htmlRoutes.js")(app);

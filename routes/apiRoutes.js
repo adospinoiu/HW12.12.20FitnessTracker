@@ -34,10 +34,11 @@ module.exports = function (app) {
     });
 
     app.put("/api/workouts/:id", ({ body, params }, res) => {
-        Workout.find({}, "totalDuration")
+        Workout.findById(params.id)
             .then(totalDuration => {
-                totalDuration = body.duration + totalDuration;
-                Workout.findByIdAndUpdate(params.id, { $push: { exercises: body }, $set: {totalDuration: totalDuration} })
+                console.log(totalDuration)
+                const newDuration = body.duration + totalDuration.totalDuration;
+                Workout.findByIdAndUpdate(params.id, { $push: { exercises: body }, totalDuration: newDuration })
                     .then(dbUser => {
                         res.json(dbUser);
                     })
@@ -45,8 +46,6 @@ module.exports = function (app) {
                         res.json(err);
                         console.log(err);
                     });
-
-
 
             })
     });

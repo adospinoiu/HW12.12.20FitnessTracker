@@ -18,25 +18,14 @@ app.use(logger("dev"));
 
 app.use(express.static("./public"));
 
-mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/populatedb", { useNewUrlParser: true });
-
-
-//===============================================================================
-//======================= DELETE THIS SECTION ===================================
-// Establish the paths to the three different HTML pages (index, exercise, stats)
-// app.get("/index", (req, res) => {
-//     res.sendFile(path.join(__dirname, "./public/index.html"))
-//   });
-
-// app.get("/exercise", (req, res) => {
-//   res.sendFile(path.join(__dirname, "./public/exercise.html"))
-// });
-
-// app.get("/stats", (req, res) => {
-//     res.sendFile(path.join(__dirname, "./public/stats.html"))
-// });
-//======================= DELETE TO HERE ========================================
-//===============================================================================
+mongoose.connect(
+  process.env.MONGODB_URI || "mongodb://localhost/FitnessTracker", 
+  { useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useCreateIndex: true,
+    useFindAndModify: false
+  }
+);
 
 // Routes
 // =============================================================

@@ -5,13 +5,23 @@ module.exports = function (app) {
 
     app.get("/api/workouts", (req, res) => {
         Workout.find({})
-          .then(dbUser => {
-            res.json(dbUser);
-          })
-          .catch(err => {
-            res.json(err);
-          });
-      });
+            .then(dbUser => {
+                res.json(dbUser);
+            })
+            .catch(err => {
+                res.json(err);
+            });
+    });
+
+    app.get("/api/workouts/range", (req, res) => {
+        Workout.find({})
+            .then(dbUser => {
+                res.json(dbUser);
+            })
+            .catch(err => {
+                res.json(err);
+            });
+    });
 
     app.post("/api/workouts", ({ body }, res) => {
         Workout.create(body)
@@ -24,14 +34,21 @@ module.exports = function (app) {
     });
 
     app.put("/api/workouts/:id", ({ body, params }, res) => {
-        Workout.findByIdAndUpdate(params.id, { $push: { exercises: body }})
-            .then(dbUser => {
-                res.json(dbUser);
+        Workout.find({}, "totalDuration")
+            .then(totalDuration => {
+                totalDuration = body.duration + totalDuration;
+                Workout.findByIdAndUpdate(params.id, { $push: { exercises: body }, $set: {totalDuration: totalDuration} })
+                    .then(dbUser => {
+                        res.json(dbUser);
+                    })
+                    .catch(err => {
+                        res.json(err);
+                        console.log(err);
+                    });
+
+
+
             })
-            .catch(err => {
-                res.json(err);
-                console.log(err);
-            });
     });
 
 
